@@ -27,11 +27,8 @@ public class Main {
 //        node4.next=node6;
 
         Main main = new Main();
-        System.out.println(main.isBalanced(root));
 
     }
-
-
 }
 
 class ListNode {
