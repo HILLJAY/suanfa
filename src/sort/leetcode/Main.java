@@ -1,6 +1,10 @@
 package sort.leetcode;
 
-import java.util.*;
+import java.nio.charset.CodingErrorAction;
+import java.util.ArrayList;
+import java.util.Deque;
+import java.util.LinkedList;
+import java.util.List;
 
 public class Main {
 
@@ -27,7 +31,27 @@ public class Main {
 //        node4.next=node6;
 
         Main main = new Main();
+        System.out.println(main.getMinHeight(root));
+    }
 
+    public int getMinHeight(TreeNode root){
+
+        if(root==null) return 0;
+
+        if(root.left==null&&root.right==null){
+            return 1;
+        }
+
+        int min=Integer.MAX_VALUE;
+        if(root.left!=null){
+            min=Math.min(getMinHeight(root.left),min);
+        }
+
+        if(root.right!=null){
+            min=Math.min(getMinHeight(root.right),min);
+        }
+
+        return min+1;
     }
 }
 
