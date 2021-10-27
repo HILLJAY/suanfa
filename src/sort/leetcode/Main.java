@@ -1,25 +1,22 @@
 package sort.leetcode;
 
 import java.nio.charset.CodingErrorAction;
-import java.util.ArrayList;
-import java.util.Deque;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 public class Main {
 
     public static void main(String[] args) {
 
         TreeNode root = new TreeNode(1);
-        TreeNode node1=new TreeNode(2);
-        TreeNode node2=new TreeNode(3);
-        TreeNode node3=new TreeNode(5);
-        TreeNode node4=new TreeNode(7);
+        TreeNode node1 = new TreeNode(2);
+        TreeNode node2 = new TreeNode(3);
+        TreeNode node3 = new TreeNode(5);
+        TreeNode node4 = new TreeNode(7);
 
-        root.left=node1;
-        root.right=node2;
-        node2.left=node3;
-        node1.right=node4;
+        root.left = node1;
+        root.right = node2;
+        node2.left = node3;
+        node1.right = node4;
 //        ListNode node1 = new ListNode(1);
 //        ListNode node2 = new ListNode(2);
 //        ListNode node3 = new ListNode(3);
@@ -31,30 +28,30 @@ public class Main {
 //        node4.next=node6;
 
         Main main = new Main();
-        System.out.println(main.getMinHeight(root));
+        System.out.println(main.getRow(3));
     }
 
-    public int getMinHeight(TreeNode root){
+    public List<Integer> getRow(int rowIndex) {
 
-        if(root==null) return 0;
+        List<List<Integer>> res = new ArrayList<>();
+        for(int i=0;i<=rowIndex;i++){
 
-        if(root.left==null&&root.right==null){
-            return 1;
+            List<Integer> values = new ArrayList<>();
+            for(int j=0;j<=i;j++){
+
+                if(j==0||j==i){
+
+                    values.add(1);
+                }else {
+
+                    values.add(res.get(i-1).get(j-1)+res.get(i-1).get(j));
+                }
+            }
+            res.add(values);
         }
-
-        int min=Integer.MAX_VALUE;
-        if(root.left!=null){
-            min=Math.min(getMinHeight(root.left),min);
-        }
-
-        if(root.right!=null){
-            min=Math.min(getMinHeight(root.right),min);
-        }
-
-        return min+1;
+        return res.get(rowIndex);
     }
 }
-
 class ListNode {
     int val;
     ListNode next;
