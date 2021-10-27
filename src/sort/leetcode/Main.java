@@ -28,28 +28,34 @@ public class Main {
 //        node4.next=node6;
 
         Main main = new Main();
-        System.out.println(main.getRow(3));
     }
 
-    public List<Integer> getRow(int rowIndex) {
+    public Node connect(Node root) {
 
-        List<List<Integer>> res = new ArrayList<>();
-        for(int i=0;i<=rowIndex;i++){
+        if(root==null) return null;
 
-            List<Integer> values = new ArrayList<>();
-            for(int j=0;j<=i;j++){
+        Queue<Node> queue = new LinkedList<>();
+        queue.offer(root);
 
-                if(j==0||j==i){
+        while(!queue.isEmpty()){
 
-                    values.add(1);
-                }else {
+            int size = queue.size();
+            for(int i=0;i<size;i++){
 
-                    values.add(res.get(i-1).get(j-1)+res.get(i-1).get(j));
+                Node node = queue.poll();
+
+                //代表当前节点所在层后面还有节点
+                if(i<size-1){
+
+                    node.next=queue.peek();
                 }
+
+                if(node.left!=null) queue.offer(node.left);
+                if(node.right!=null) queue.offer(node.right);
             }
-            res.add(values);
         }
-        return res.get(rowIndex);
+
+        return root;
     }
 }
 class ListNode {
@@ -104,3 +110,24 @@ class TreeNode {
                 '}';
     }
 }
+
+class Node {
+    public int val;
+    public Node left;
+    public Node right;
+    public Node next;
+
+    public Node() {}
+
+    public Node(int _val) {
+        val = _val;
+    }
+
+    public Node(int _val, Node _left, Node _right, Node _next) {
+        val = _val;
+        left = _left;
+        right = _right;
+        next = _next;
+    }
+}
+
